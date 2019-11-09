@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contratos\" />
+    <Compile Remove="Contratos\IUsuarioResitoio.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Contratos\IBaseRepositoriocs" />
   </ItemGroup>
 
 </Project>
