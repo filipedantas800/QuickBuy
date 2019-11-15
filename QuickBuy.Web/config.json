@@ -1,0 +1,9 @@
+{
+  "ConnectionStrings": {
+    "SqlServerConnection": "",
+    "QuickBuyDB": "server=localhost;port=3306;database=QuickBuyDB;user=root;pwd=root;"
+    //"server=localhost;user id=root;pwd=wampmysqld64;database=QuickBuyDB"
+
+  }
+
+}
