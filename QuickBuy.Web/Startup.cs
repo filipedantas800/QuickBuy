@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QuickBuy.Dominio.Contratos;
 using QuickBuy.Repositorio.Contexto;
+using QuickBuy.Repositorio.Repositorios;
+using System;
 
 namespace QuickBuy.Web
 {
@@ -32,7 +36,8 @@ namespace QuickBuy.Web
                                                         option.UseLazyLoadingProxies()
                                                         .UseMySql(connectionString,
                                                                             m => m.MigrationsAssembly("QuickBuy.Repositorio")));
-            
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -73,8 +78,13 @@ namespace QuickBuy.Web
 
                 if (env.IsDevelopment())
                 {
-                    // spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+                    spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
+                    spa.UseAngularCliServer(npmScript: "start");
+
+                    //essas duas linhas  acima, foram colocadas para resolver um problem que não consegui executar a pagina e a linha de baixo comentada, era que  estava
+                    
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+
                 }
             });
         }
