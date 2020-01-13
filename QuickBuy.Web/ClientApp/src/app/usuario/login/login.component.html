@@ -47,6 +47,8 @@
       <span class="spinner-border spinner-grow-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
       Entrar
     </button>
+    <div>Novo por aqui?<a [routerLink]='["/novo-usuario"]'>Cadastre-se</a></div>
+    <!--routerLik redireciona para outra pagina-->
 
     <div class="alert alert-danger" *ngIf="mensagem">
       {{mensagem}}

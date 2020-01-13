@@ -3,23 +3,24 @@ import { Usuario } from "../../modelo/usuario";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UsuarioServico } from "../../servicos/usuario/usuario.servico";
 
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls:["./login.component.css"]
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   public usuario;
-  public returnlUrl: string;
+  public returnUrl: string;
   public mensagem: string;
   private ativar_spinner: boolean;
 
   constructor(private router: Router, private activatedRouter: ActivatedRoute,
-            private usuarioServico: UsuarioServico) {
+    private usuarioServico: UsuarioServico) {
   }
 
   ngOnInit(): void {
-    this.returnlUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
+    this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
     this.usuario = new Usuario();
   }
 
@@ -27,14 +28,15 @@ export class LoginComponent implements OnInit {
     this.ativar_spinner = true;
     this.usuarioServico.verificarUsuario(this.usuario)
       .subscribe(
-        usuario_json=> {
-          //essa linha será executada no caso de retorno sem erros
+        usuario_json => {
+          // essa linha será executada no caso de retorno sem erros                          
           this.usuarioServico.usuario = usuario_json;
+          console.log(usuario_json);
 
-          if (this.returnlUrl == null) {
+          if (this.returnUrl == null) {
             this.router.navigate(['/']);
           } else {
-            this.router.navigate([this.returnlUrl]);
+            this.router.navigate([this.returnUrl]);
           }
         },
         err => {
