@@ -2,7 +2,8 @@ import {Component} from "@angular/core"
 
 @Component({
   selector: "app-produto", //eu posso definir o nome da teg onde meu produto será redenizado ou seja class : ProdutoComponent
-  template : "<html><body>{{ ObterNome() }}</body></html>" //é uma estrutura em html, onde eu vou redenizar meu component
+  template: "./produto.component.html",
+  styleUrls: ["./produto.component.css"]//é uma estrutura em html, onde eu vou redenizar meu component
 })
 export class ProdutoComponent {//Nome de classes começando com maíusculo por conta da convenção PascalCase
 
