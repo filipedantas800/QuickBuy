@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<h1 class="h4">Cadastro de Produto</h1>
+<label for="inputNome" class="sr-only">Nome</label>
+<input type="text" id="inputNome"
+       name="inputNome"
+       placeholder="Nome do Produto"
+       class="form-control mb-2 col-md-4"
+       [ngClass]=""
+       [(ngModel)]="produto.nome"
+       #nome="ngModel"
+       required/>

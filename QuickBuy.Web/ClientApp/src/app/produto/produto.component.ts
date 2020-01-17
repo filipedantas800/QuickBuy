@@ -1,17 +1,34 @@
-import {Component} from "@angular/core"
+import { Component, OnInit } from "@angular/core"
+import { Produto } from "../modelo/produto";
+import { ProdutoServico } from "../servicos/produto/produto.servico";
 
 @Component({
-  selector: "app-produto", //eu posso definir o nome da teg onde meu produto será redenizado ou seja class : ProdutoComponent
-  template: "./produto.component.html",
-  styleUrls: ["./produto.component.css"]//é uma estrutura em html, onde eu vou redenizar meu component
+  selector: "app-produto",    //eu posso definir o nome da teg onde meu produto será redenizado ou seja class : ProdutoComponent
+  templateUrl: "./produto.component.html",
+  styleUrls: ["./produto.component.css"]   //é uma estrutura em html, onde eu vou redenizar meu component
 })
-export class ProdutoComponent {//Nome de classes começando com maíusculo por conta da convenção PascalCase
+export class ProdutoComponent implements OnInit {             //Nome de classes começando com maíusculo por conta da convenção PascalCase
+  public produto: Produto
+  
 
-  /* camelCase para variáveis, atributos e nomes das funções */
-  public nome: string;
-  public liberadoParaVenda: boolean;
+  constructor(private produtoServico: ProdutoServico) {
 
-  public obterNome(): string {
-    return "Samsung";
+  }
+
+  ngOnInit(): void {
+    this.produto = new Produto();
+  }
+
+  public cadastrar() {
+    this.produtoServico.cadastrar(this.produto)
+      .subscribe(
+        produtoJson => {
+          console.log(produtoJson);
+        },
+        e => {
+          console.log(e.error);
+        }
+
+      );
   }
 }

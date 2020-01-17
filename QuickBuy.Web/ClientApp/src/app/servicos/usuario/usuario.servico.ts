@@ -56,7 +56,7 @@ export class UsuarioServico {
 
     var body = {
       email: usuario.email,
-      senha: usuario.senha
+      senha: usuario.senha,
       nome: usuario.nome,
       sobreNome: usuario.sobreNome
     }
