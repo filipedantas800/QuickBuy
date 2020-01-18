@@ -17,5 +17,10 @@ namespace QuickBuy.Repositorio.Repositorios
             //E VAI ME TRAZER A PRIMERIA OCORRENCIA QUE EXISTA, ONDE OS DADOS ESTEJA NO PAREMETRO OBTER
             return QuickBuyContexto.Usuario.FirstOrDefault(u => u.Email == email && u.Senha == senha);
         }
+
+        public Usuario Obter(string email)
+        {
+            return QuickBuyContexto.Usuario.FirstOrDefault(u => u.Email == email);
+        }
     }
 }
