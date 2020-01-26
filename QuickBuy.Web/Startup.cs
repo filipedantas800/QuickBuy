@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace QuickBuy.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var connectionString = Configuration.GetConnectionString("QuickBuyDB");
             services.AddDbContext<QuickBuyContexto>(option =>
@@ -79,12 +81,12 @@ namespace QuickBuy.Web
 
                 if (env.IsDevelopment())
                 {
-                    //spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
-                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
+                    spa.UseAngularCliServer(npmScript: "start");
 
                     //essas duas linhas  acima, foram colocadas para resolver um problem que não consegui executar a pagina e a linha de baixo comentada, era que  estava
 
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
 
                 }
             });
