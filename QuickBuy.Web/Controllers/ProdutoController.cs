@@ -73,7 +73,7 @@ namespace QuickBuy.Web.Controllers
 
                 }
 
-                return Ok("Arquivo enviado com sucesso");
+                return Json(novoNomeArquivo);
             }
             catch (Exception ex)
             {
