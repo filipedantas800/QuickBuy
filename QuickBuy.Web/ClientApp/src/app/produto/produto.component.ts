@@ -11,6 +11,7 @@ export class ProdutoComponent implements OnInit {             //Nome de classes 
   public produto: Produto
   public arquivoSelecionado: File;
   public ativar_spinner: boolean;
+  public mensagem: string;
 
   constructor(private produtoServico: ProdutoServico) {
 
@@ -37,15 +38,26 @@ export class ProdutoComponent implements OnInit {             //Nome de classes 
   }
 
   public cadastrar() {
-    //this.produtoServico.cadastrar(this.produto)
-    //  .subscribe(
-    //    produtoJson => {
-    //      console.log(produtoJson);
-    //    },
-    //    e => {
-    //      console.log(e.error);
-    //    }
+    this.ativarEspera();
+    this.produtoServico.cadastrar(this.produto)
+      .subscribe(
+        produtoJson => {
+          console.log(produtoJson);
+          this.desativarEspera();
+        },
+        e => {
+          console.log(e.error);
+          this.mensagem = e.error;
+          this.desativarEspera();
+        }
 
-    //  );
+      );
+  }
+  public ativarEspera() {
+    this.ativar_spinner = true;
+  }
+
+  public desativarEspera() {
+    this.ativar_spinner = false;
   }
 }
