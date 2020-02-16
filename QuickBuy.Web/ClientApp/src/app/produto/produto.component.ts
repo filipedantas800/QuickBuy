@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { Produto } from "../modelo/produto";
 import { ProdutoServico } from "../servicos/produto/produto.servico";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-produto",    //eu posso definir o nome da teg onde meu produto será redenizado ou seja class : ProdutoComponent
@@ -13,12 +14,18 @@ export class ProdutoComponent implements OnInit {             //Nome de classes 
   public ativar_spinner: boolean;
   public mensagem: string;
 
-  constructor(private produtoServico: ProdutoServico) {
+  constructor(private produtoServico: ProdutoServico, private router: Router) {
 
   }
 
   ngOnInit(): void {
-    this.produto = new Produto();
+    var produtoSession = sessionStorage.getItem('produtoSession')
+    if (produtoSession) {
+      this.produto = JSON.parse(produtoSession);
+    } else {
+      this.produto = new Produto();
+    }
+    
   }
 
   public inputChange(files: FileList) {
@@ -44,11 +51,13 @@ export class ProdutoComponent implements OnInit {             //Nome de classes 
         produtoJson => {
           console.log(produtoJson);
           this.desativarEspera();
+          this.router.navigate(['/pesquisar-produto']);
         },
         e => {
           console.log(e.error);
           this.mensagem = e.error;
           this.desativarEspera();
+          
         }
 
       );
