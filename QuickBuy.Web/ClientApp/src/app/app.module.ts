@@ -16,6 +16,7 @@ import { CadastroUsuarioComponent } from './usuario/cadastro/cadastro.usuario.co
 import { ProdutoServico } from './servicos/produto/produto.servico';
 import { PesquisaProdutoComponent } from './produto/pesquisa/pesquisa.produto.component';
 import { LojaPesquisaComponet } from './loja/pesquisa/loja.pesquisa.component';
+import { LojaProdutoComponent } from './loja/produto/loja.produto.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { LojaPesquisaComponet } from './loja/pesquisa/loja.pesquisa.component';
     LoginComponent,
     CadastroUsuarioComponent,
     PesquisaProdutoComponent,
-    LojaPesquisaComponet
+    LojaPesquisaComponet,
+    LojaProdutoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,7 +41,8 @@ import { LojaPesquisaComponet } from './loja/pesquisa/loja.pesquisa.component';
       { path: 'produto', component: ProdutoComponent},  /* caminho de navegação*/
       { path: 'entrar', component: LoginComponent },
       { path: 'novo-usuario', component: CadastroUsuarioComponent },
-      { path: "pesquisar-produto", component: PesquisaProdutoComponent }
+      { path: "pesquisar-produto", component: PesquisaProdutoComponent },
+      { path: "loja-produto", component: LojaProdutoComponent }
     ])
   ],
   providers: [UsuarioServico,ProdutoServico],
