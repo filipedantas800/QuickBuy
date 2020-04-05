@@ -5,7 +5,7 @@ var LojaCarrinhoCompras = /** @class */ (function () {
         this.produtos = [];
     }
     LojaCarrinhoCompras.prototype.adicionar = function (produto) {
-        var produtoLocaStorage = localStorage.getItem("produtosLocaStorage");
+        var produtoLocaStorage = localStorage.getItem("produtoLocaStorage");
         if (!produtoLocaStorage) {
             // se nao existir nada dentro do localStorage
             this.produtos.push(produto);
@@ -25,6 +25,15 @@ var LojaCarrinhoCompras = /** @class */ (function () {
         }
     };
     LojaCarrinhoCompras.prototype.removerProduto = function (produto) {
+        var produtoLocaStorage = localStorage.getItem("produtoLocaStorage");
+        if (produtoLocaStorage) {
+            this.produtos = JSON.parse(produtoLocaStorage);
+            this.produtos = this.produtos.filter(function (p) { return p.id != produto.id; });
+            localStorage.setItem("produtoLocaStorage", JSON.stringify(this.produtos));
+        }
+    };
+    LojaCarrinhoCompras.prototype.atualizar = function (produtos) {
+        localStorage.setItem("produtoLocaStorage", JSON.stringify(produtos));
     };
     return LojaCarrinhoCompras;
 }());
