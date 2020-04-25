@@ -31,12 +31,10 @@ export class LoginComponent implements OnInit {
         usuario_json => {
           // essa linha será executada no caso de retorno sem erros                          
           this.usuarioServico.usuario = usuario_json;
-          console.log(usuario_json);
 
           if (this.returnUrl == null) {
             this.router.navigate(['/']);
-          }
-          else {
+          } else {
             this.router.navigate([this.returnUrl]);
           }
         },

@@ -23,11 +23,12 @@ export class LojaEfetivarComponent implements OnInit {
     this.atualizarTotal();
   }
 
-  constructor(private usuarioService: UsuarioServico, private pedidoServico: PedidoServico, private router: Router) {
+  constructor(private usuarioServico: UsuarioServico, private pedidoServico: PedidoServico, private router: Router) {
 
   }
 
   public atualizarPreco(produto: Produto, quantidade: number) {
+
     if (!produto.precoOriginal) {
       produto.precoOriginal = produto.preco;
     }
@@ -41,8 +42,6 @@ export class LojaEfetivarComponent implements OnInit {
     this.carrinhoCompras.atualizar(this.produtos);
     this.atualizarTotal();
   }
-
-
   public remover(produto: Produto) {
     this.carrinhoCompras.removerProduto(produto);
     this.produtos = this.carrinhoCompras.obterProdutos();
@@ -52,7 +51,9 @@ export class LojaEfetivarComponent implements OnInit {
     this.total = this.produtos.reduce((acc, produto) => acc + produto.preco, 0);
   }
 
+
   public efetivarCompra() {
+
     this.pedidoServico.efetivarCompra(this.criarPedido())
       .subscribe(
         pedidoId => {
@@ -69,15 +70,16 @@ export class LojaEfetivarComponent implements OnInit {
   }
 
   public criarPedido(): Pedido {
+
     let pedido = new Pedido();
-    pedido.usuarioId = this.usuarioService.usuario.id;
+    pedido.usuarioId = this.usuarioServico.usuario.id;
     pedido.cep = "122323";
     pedido.cidade = "Sao Paulo";
-    pedido.estado = "Sao Paulo";
+    pedido.estado = "Sao Paulo ";
     pedido.dataPrevisaoEntrega = new Date();
     pedido.formaPagamentoId = 1;
     pedido.numeroEndereco = "12";
-    pedido.enderecoCompleto = "Rua jose Leao dos Santos";
+    pedido.enderecoCompleto = "akjdhajsdhajshdjas";
 
     this.produtos = this.carrinhoCompras.obterProdutos();
 
@@ -94,5 +96,6 @@ export class LojaEfetivarComponent implements OnInit {
     }
 
     return pedido;
+
   }
 }
