@@ -14,6 +14,8 @@ namespace QuickBuy.Dominio.Entidades
 
         public string SobreNome { get; set; }
 
+        public bool EhAdministrador { get; set; }
+
         //Um usuario pode ter nenhum ou muitos pedidos
 
         public virtual ICollection<Pedido> Pedidos { get; set; }
