@@ -2,14 +2,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using QuickBuy.Dominio.Contratos;
 using QuickBuy.Repositorio.Contexto;
 using QuickBuy.Repositorio.Repositorios;
-using System;
+
 
 namespace QuickBuy.Web
 {
@@ -31,8 +31,8 @@ namespace QuickBuy.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                //.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -52,7 +52,7 @@ namespace QuickBuy.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -68,13 +68,15 @@ namespace QuickBuy.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseRouting();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller}/{action=Index}/{id?}");
+            //});
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSpa(spa =>
             {
@@ -85,12 +87,12 @@ namespace QuickBuy.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
+                    //spa.UseAngularCliServer(npmScript: "start");
 
                     //essas duas linhas  acima, foram colocadas para resolver um problem que não consegui executar a pagina e a linha de baixo comentada, era que  estava
 
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
 
                 }
             });
